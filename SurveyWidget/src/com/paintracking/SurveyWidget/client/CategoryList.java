@@ -13,6 +13,10 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.paintracking.SurveyWidget.client.JsList.JsArrayExtend;
 import com.paintracking.SurveyWidget.client.JsList.JsList;
 import com.paintracking.SurveyWidget.client.detail.Detail;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
 
 public class CategoryList extends Composite implements Master{
 	private List<PainCategory> dataList = new ArrayList<PainCategory>();
@@ -53,6 +57,31 @@ public class CategoryList extends Composite implements Master{
 		flexTable.setWidget(1, 0, getCategoryCellList());
 		getCategoryCellList().setSize("226px", "234px");
 		flexTable.getCellFormatter().setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_CENTER);
+		
+		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		flexTable.setWidget(2, 0, horizontalPanel);
+		horizontalPanel.setWidth("100%");
+		
+		Button btnSubmit = new Button("Submit");
+		btnSubmit.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				System.out.println(asJSONData());
+			}
+		});
+		btnSubmit.setStyleName("gwt-Button-SurveyWidgetButton");
+		horizontalPanel.add(btnSubmit);
+		
+		Button btnClear = new Button("Clear");
+		btnClear.setStyleName("gwt-Button-SurveyWidgetButton");
+		horizontalPanel.add(btnClear);
+		
+		Button btnEdit = new Button("Edit");
+		btnEdit.setStyleName("gwt-Button-SurveyWidgetButton");
+		horizontalPanel.add(btnEdit);
+		
+		Button btnAddCategory = new Button("Add\n");
+		btnAddCategory.setStyleName("gwt-Button-SurveyWidgetButton");
+		horizontalPanel.add(btnAddCategory);
 	}
 	
 	public void loadData(){
@@ -102,6 +131,16 @@ public class CategoryList extends Composite implements Master{
 			return eval('('+json+')');
 	  }-*/;
 
+	  
+	private String asJSONData(){
+		String jsonData = "[";
+		for(PainCategory category : dataList){
+			jsonData += category.getJSON() + ",";
+		}
+		jsonData = jsonData.substring(0,jsonData.length()-1);//Take off last comma
+		jsonData += "]";//Add ending
+		return jsonData;
+	}
 	  
 	public void setDetailObject(Detail detailObject) {
 		this.detailObject = detailObject;

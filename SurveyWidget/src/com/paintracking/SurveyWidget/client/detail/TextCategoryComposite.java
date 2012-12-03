@@ -80,6 +80,7 @@ public class TextCategoryComposite extends Composite implements Detail {
 		textArea.setText(detailItem.getActualValue());
 	}
 	
+	////Detail Interface methods
 	@Override
 	public void setDetailItem(PainCategory newDetailItem) {
 		detailItem = newDetailItem;
