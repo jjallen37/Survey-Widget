@@ -1,27 +1,45 @@
 package com.paintracking.SurveyWidget.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gwt.core.client.JsArray;
+
 public class PainCategory {
 
 	private int surveyID;
 	private int categoryID;
 	private int userID;
 	private int fields;
-	private String[] options;
+	private List<CategoryOption> options;
 	private int relativeValue;
 	private String actualValue;
 	private String categoryType;
 	private String categoryName;
 
 	public PainCategory(JSONCategory jsonCategory){
+		//Make options list
+		JsArray<JsonOption> tempOps = jsonCategory.getOptions();
+		options = new ArrayList<CategoryOption>();
+		
+		//Convert the JSON to Category Option wrappers.
+		for(int i=0; i<tempOps.length(); i++){
+			CategoryOption categoryOption = new CategoryOption(tempOps.get(i));
+			options.add(categoryOption);
+		}
+		
 		//Wrap all of the variables
 		categoryName = jsonCategory.getCategoryName();
 		actualValue = jsonCategory.getActualValue();
-		options = jsonCategory.getOptions();
 		categoryType = jsonCategory.getCategoryType();
 //		surveyID = jsonCategory.getSurveyID();
 //		categoryID = jsonCategory.getCategoryID();
 //		userID = jsonCategory.getUserID();
 
+	}
+	
+	public PainCategory(){
+		
 	}
 	
 	public String getJSON(){
@@ -53,10 +71,10 @@ public class PainCategory {
 	public void setFields(int fields) {
 		this.fields = fields;
 	}
-	public String[] getOptions() {
+	public List<CategoryOption> getOptions() {
 		return options;
 	}
-	public void setOptions(String[] options) {
+	public void setOptions(List<CategoryOption> options) {
 		this.options = options;
 	}
 	public String getActualValue() {

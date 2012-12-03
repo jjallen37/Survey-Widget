@@ -85,28 +85,54 @@ public class CategoryList extends Composite implements Master{
 	}
 	
 	public void loadData(){
-		//TODO Real data	
 		
-
-		//Testing JSON
-		//Make dummy JSON Data with category type and options
-		String categoryOne = "{\"categoryName\":\"Pain\"," +
-				"\"actualValue\":\"3. A Lot\"," +
-				"\"categoryType\":\"options\"," +
-				"\"options\":[\"None\"]}";
-		String categoryTwo = "{\"categoryName\":\"Dinner\"," +
-				"\"actualValue\":\"Spagetti\"," +
-				"\"categoryType\":\"text\"}";
-		String jsonData = "["+categoryOne+","+categoryTwo+"]";
+		//Dummy data before I added JSON data
+		dataList = new ArrayList<PainCategory>();
 		
-		//Parse jsonData into a JsArray
-		JsArray<JSONCategory> jsCategoryArray = asArrayOfCategories(jsonData);
+		PainCategory a = new PainCategory();
+		a.setCategoryName("Pain");
+		a.setCategoryType("options");
+		a.setActualValue("");
+		ArrayList<CategoryOption> optionsA = new ArrayList<CategoryOption>();
+		optionsA.add(new CategoryOption(1,"None"));
+		optionsA.add(new CategoryOption(2,"Some"));
+		optionsA.add(new CategoryOption(3,"A lot"));
+		a.setOptions(optionsA);
 		
-		//Convert JsArray into an ArrayList to create a mutable copy with a list interface for editing.
-		for(int i=0; i<jsCategoryArray.length(); i++){
-			dataList.add(new PainCategory(jsCategoryArray.get(i)));
-		}
+		PainCategory b = new PainCategory();
+		b.setCategoryName("Mood");
+		b.setCategoryType("text");
+		b.setActualValue("Happy");
 		
+		dataList.add(a);
+		dataList.add(b);
+//		ArrayList<CategoryOption> optionsB = new ArrayList<CategoryOption>();
+//		optionsB.add(new CategoryOption(1,"None"));
+//		optionsB.add(new CategoryOption(2,"Some"));
+//		optionsB.add(new CategoryOption(3,"A lot"));
+//		a.setOptions(optionsA);
+		
+//		//TODO JSON Data or with arrays figure it out, fuck	
+//		//Make dummy JSON Data with category type and options
+//		String categoryOne = "{\"categoryName\":\"Pain\"," +
+//				"\"actualValue\":\"3. A Lot\"," +
+//				"\"categoryType\":\"options\"," +
+//				"\"options\":[{\"index\":1,\"option\":\"None\"}," +
+//							 "{\"index\":2,\"option\":\"Some\"}," +
+//							 "{\"index\":3,\"option\":\"A lot\"},  ]}";
+//		String categoryTwo = "{\"categoryName\":\"Dinner\"," +
+//				"\"actualValue\":\"Spagetti\"," +
+//				"\"categoryType\":\"text\"}";
+//		String jsonData = "["+categoryOne+","+categoryTwo+"]";
+//		
+//		//Parse jsonData into a JsArray
+//		JsArray<JSONCategory> jsCategoryArray = asArrayOfCategories(jsonData);
+//		
+//		//Convert JsArray into an ArrayList to create a mutable copy with a list interface for editing.
+//		for(int i=0; i<jsCategoryArray.length(); i++){
+//			dataList.add(new PainCategory(jsCategoryArray.get(i)));
+//		}
+//		
 		
 		
 //		//Make dummy JSON Data before I added categoryType and category options

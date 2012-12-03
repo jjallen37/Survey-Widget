@@ -46,11 +46,11 @@ public class SurveyWidget implements EntryPoint {
 						PainCategory selectedCategory = masterSelectionModel.getSelectedObject();
 						
 						//Select type of composite based on data type
-						if(selectedCategory.getCategoryType() == "options"){
+						if(selectedCategory.getCategoryType().equals("options")){
 							detailComposite = new OptionsCategoryComponent(); //TEST
-						}else if(selectedCategory.getCategoryType() == "text"){
+						}else if(selectedCategory.getCategoryType().equals("text")){
 							detailComposite = new TextCategoryComposite();
-						}else if(selectedCategory.getCategoryType() == "basic"){
+						}else if(selectedCategory.getCategoryType().equals("basic")){
 							detailComposite = new BasicPainCategoryComposite(); //TEST
 						}
 						
