@@ -10,6 +10,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.paintracking.SurveyWidget.client.detail.BasicPainCategoryComposite;
 import com.paintracking.SurveyWidget.client.detail.Detail;
+import com.paintracking.SurveyWidget.client.detail.OptionsCategoryComponent;
 import com.paintracking.SurveyWidget.client.detail.TextCategoryComposite;
 
 /**
@@ -42,15 +43,22 @@ public class SurveyWidget implements EntryPoint {
 				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 					public void onSelectionChange(SelectionChangeEvent event) {
 						//Create the detail Composite
-						//TODO select type of composite based on type
-						detailComposite = new TextCategoryComposite();
-//						detailComposite = new BasicPainCategoryComposite(); //TEST
+						PainCategory selectedCategory = masterSelectionModel.getSelectedObject();
+						
+						//Select type of composite based on data type
+						if(selectedCategory.getCategoryType() == "options"){
+							detailComposite = new OptionsCategoryComponent(); //TEST
+						}else if(selectedCategory.getCategoryType() == "text"){
+							detailComposite = new TextCategoryComposite();
+						}else if(selectedCategory.getCategoryType() == "basic"){
+							detailComposite = new BasicPainCategoryComposite(); //TEST
+						}
 						
 						//Hook up master and detail
 						detailPanel.setWidget((Composite)detailComposite);
 						painCategoryComposite.setDetailObject(detailComposite);
 						detailComposite.setMasterObject(painCategoryComposite);
-						detailComposite.setDetailItem(masterSelectionModel.getSelectedObject());
+						detailComposite.setDetailItem(selectedCategory);
 						
 					}
 				});

@@ -16,7 +16,8 @@ public class PainCategory {
 		//Wrap all of the variables
 		categoryName = jsonCategory.getCategoryName();
 		actualValue = jsonCategory.getActualValue();
-		
+		options = jsonCategory.getOptions();
+		categoryType = jsonCategory.getCategoryType();
 //		surveyID = jsonCategory.getSurveyID();
 //		categoryID = jsonCategory.getCategoryID();
 //		userID = jsonCategory.getUserID();

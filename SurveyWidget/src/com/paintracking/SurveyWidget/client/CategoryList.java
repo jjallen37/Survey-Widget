@@ -89,9 +89,14 @@ public class CategoryList extends Composite implements Master{
 		
 
 		//Testing JSON
-		//Make dummy JSON Data
-		String categoryOne = "{\"categoryName\":\"Pain\",\"actualValue\":\"3. A Lot\"}";
-		String categoryTwo = "{\"categoryName\":\"Dinner\",\"actualValue\":\"Spagetti\"}";
+		//Make dummy JSON Data with category type and options
+		String categoryOne = "{\"categoryName\":\"Pain\"," +
+				"\"actualValue\":\"3. A Lot\"," +
+				"\"categoryType\":\"options\"," +
+				"\"options\":[\"None\"]}";
+		String categoryTwo = "{\"categoryName\":\"Dinner\"," +
+				"\"actualValue\":\"Spagetti\"," +
+				"\"categoryType\":\"text\"}";
 		String jsonData = "["+categoryOne+","+categoryTwo+"]";
 		
 		//Parse jsonData into a JsArray
@@ -103,6 +108,10 @@ public class CategoryList extends Composite implements Master{
 		}
 		
 		
+		
+//		//Make dummy JSON Data before I added categoryType and category options
+//		String categoryOne = "{\"categoryName\":\"Pain\",\"actualValue\":\"3. A Lot\"}";
+//		String categoryTwo = "{\"categoryName\":\"Dinner\",\"actualValue\":\"Spagetti\"}";
 		//Before I realized JSON Category was a final object
 //		JsArrayExtend<JSONCategory> jsonCategories = asArrayOfCategories(jsonData);
 //		dataList = new JsList<JSONCategory>(jsonCategories);
