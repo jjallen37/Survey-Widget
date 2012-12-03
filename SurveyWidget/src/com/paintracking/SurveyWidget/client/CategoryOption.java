@@ -27,4 +27,8 @@ public class CategoryOption {
 		this.option = option;
 	}
 	
+	public String toString(){
+		return ""+index+". "+option;
+	}
+	
 }
