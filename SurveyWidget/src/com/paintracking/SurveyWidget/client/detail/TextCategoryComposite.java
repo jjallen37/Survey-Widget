@@ -13,6 +13,8 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
 
 public class TextCategoryComposite extends Composite implements Detail {
 
@@ -32,13 +34,7 @@ public class TextCategoryComposite extends Composite implements Detail {
 		flexTable.getCellFormatter().setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_CENTER);
 		
 		textArea = new TextArea();
-		textArea.addChangeHandler(new ChangeHandler() {
-			public void onChange(ChangeEvent event) {
-				//TODO set data values
-				System.out.println(textArea.getText());
-//				masterObject.refresh();
-			}
-		});
+
 		
 		flexTable.setWidget(1, 0, textArea);
 		textArea.setSize("220px", "200px");
@@ -48,12 +44,35 @@ public class TextCategoryComposite extends Composite implements Detail {
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		flexTable.setWidget(2, 0, horizontalPanel);
 		
+		Button btnSaveText = new Button("Save Text");
+		btnSaveText.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				saveText();
+			}
+		});
+		
+		horizontalPanel.add(btnSaveText);
+		
+		Button btnClear = new Button("Clear");
+		btnClear.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				//Clear the text area
+				textArea.setText("");
+				
+				//Update Master
+				saveText();
+			}
+		});
+		horizontalPanel.add(btnClear);
+		
 		Button btnEdit = new Button("Edit");
 		horizontalPanel.add(btnEdit);
 		
-		Button btnClear = new Button("Clear");
-		horizontalPanel.add(btnClear);
-		
+	}
+	
+	private void saveText(){
+		detailItem.setActualValue(textArea.getText());
+		masterObject.refresh();
 	}
 	
 	private void configureView(){

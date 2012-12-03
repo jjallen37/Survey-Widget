@@ -49,7 +49,9 @@ public class SurveyWidget implements EntryPoint {
 						//Hook up master and detail
 						detailPanel.setWidget((Composite)detailComposite);
 						painCategoryComposite.setDetailObject(detailComposite);
-						detailComposite.setDetailItem(masterSelectionModel.getSelectedObject());						
+						detailComposite.setMasterObject(painCategoryComposite);
+						detailComposite.setDetailItem(masterSelectionModel.getSelectedObject());
+						
 					}
 				});
 		
