@@ -36,7 +36,7 @@ public class SurveyWidget implements EntryPoint {
 		
 		
 		// Add a selection model to master that pulls up the pain category options in the detail view
-		final SingleSelectionModel<JSONCategory> masterSelectionModel = new SingleSelectionModel<JSONCategory>();
+		final SingleSelectionModel<PainCategory> masterSelectionModel = new SingleSelectionModel<PainCategory>();
 		painCategoryComposite.getCategoryCellList().setSelectionModel(masterSelectionModel);
 		masterSelectionModel
 				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {

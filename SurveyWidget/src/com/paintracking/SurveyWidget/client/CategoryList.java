@@ -1,10 +1,12 @@
 package com.paintracking.SurveyWidget.client;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.cell.client.AbstractCell;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -13,9 +15,9 @@ import com.paintracking.SurveyWidget.client.JsList.JsList;
 import com.paintracking.SurveyWidget.client.detail.Detail;
 
 public class CategoryList extends Composite implements Master{
-	private List<JSONCategory> dataList;
+	private List<PainCategory> dataList = new ArrayList<PainCategory>();
 	private Detail detailObject;
-	private CellList<JSONCategory> categoryCellList;
+	private CellList<PainCategory> categoryCellList;
 	
 	public CategoryList() {
 		//Load dummy data
@@ -25,9 +27,9 @@ public class CategoryList extends Composite implements Master{
 		initWidget(flexTable);
 		flexTable.setSize("226px", "224px");
 		
-		setCategoryCellList(new CellList<JSONCategory>(new AbstractCell<JSONCategory>(){
+		setCategoryCellList(new CellList<PainCategory>(new AbstractCell<PainCategory>(){
 			@Override
-			public void render(Context context, JSONCategory value, SafeHtmlBuilder sb) {
+			public void render(Context context, PainCategory value, SafeHtmlBuilder sb) {
 				//Show a the Category name and the selected result
 				sb.appendHtmlConstant("<table>");
 				// Create a table to align the cells correctly
@@ -63,11 +65,22 @@ public class CategoryList extends Composite implements Master{
 		String categoryTwo = "{\"categoryName\":\"Dinner\",\"actualValue\":\"Spagetti\"}";
 		String jsonData = "["+categoryOne+","+categoryTwo+"]";
 		
-		//Evaluate JSON into List
-		JsArrayExtend<JSONCategory> jsonCategories = asArrayOfCategories(jsonData);
-		dataList = new JsList<JSONCategory>(jsonCategories);
+		//Parse jsonData into a JsArray
+		JsArray<JSONCategory> jsCategoryArray = asArrayOfCategories(jsonData);
 		
-//		//Dummy data
+		//Convert JsArray into an ArrayList to create a mutable copy with a list interface for editing.
+		for(int i=0; i<jsCategoryArray.length(); i++){
+			dataList.add(new PainCategory(jsCategoryArray.get(i)));
+		}
+		
+		
+		//Before I realized JSON Category was a final object
+//		JsArrayExtend<JSONCategory> jsonCategories = asArrayOfCategories(jsonData);
+//		dataList = new JsList<JSONCategory>(jsonCategories);
+		
+		
+		
+//		//Dummy data before I added JSON data
 //		PainCategory a = new PainCategory();
 //		a.setCategoryName("Pain");
 //		a.setCategoryType("Options");
@@ -85,7 +98,7 @@ public class CategoryList extends Composite implements Master{
 	  /**
 	   * Convert the string of JSON into JavaScript object.
 	   */
-	  private final native JsArrayExtend<JSONCategory> asArrayOfCategories(String json) /*-{
+	  private final native JsArray<JSONCategory> asArrayOfCategories(String json) /*-{
 			return eval('('+json+')');
 	  }-*/;
 
@@ -106,11 +119,11 @@ public class CategoryList extends Composite implements Master{
 		getCategoryCellList().setRowData(0, dataList);
 	}
 
-	public CellList<JSONCategory> getCategoryCellList() {
+	public CellList<PainCategory> getCategoryCellList() {
 		return categoryCellList;
 	}
 
-	public void setCategoryCellList(CellList<JSONCategory> categoryCellList) {
+	public void setCategoryCellList(CellList<PainCategory> categoryCellList) {
 		this.categoryCellList = categoryCellList;
 	}
 
