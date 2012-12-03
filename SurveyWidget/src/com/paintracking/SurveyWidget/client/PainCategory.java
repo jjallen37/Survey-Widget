@@ -16,9 +16,15 @@ public class PainCategory {
 		//Wrap all of the variables
 		categoryName = jsonCategory.getCategoryName();
 		actualValue = jsonCategory.getActualValue();
+		
+//		surveyID = jsonCategory.getSurveyID();
+//		categoryID = jsonCategory.getCategoryID();
+//		userID = jsonCategory.getUserID();
+
 	}
 	
 	public String getJSON(){
+		//TODO write reflective java code to generate json
 		return "{\"categoryName\":\""+categoryName+"\", \"actualValue\":\""+actualValue+"\"}";
 	}
 	
