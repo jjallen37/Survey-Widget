@@ -66,6 +66,11 @@ public class TextCategoryComposite extends Composite implements Detail {
 		horizontalPanel.add(btnClear);
 		
 		Button btnEdit = new Button("Edit");
+		btnEdit.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				
+			}
+		});
 		horizontalPanel.add(btnEdit);
 		
 	}

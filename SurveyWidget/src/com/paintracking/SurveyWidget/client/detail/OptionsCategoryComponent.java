@@ -2,6 +2,7 @@ package com.paintracking.SurveyWidget.client.detail;
 
 import java.util.List;
 
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.ui.Composite;
 import com.paintracking.SurveyWidget.client.CategoryOption;
 import com.paintracking.SurveyWidget.client.Master;
@@ -13,11 +14,17 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.NumberCell;
+import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.gwt.cell.client.ButtonCell;
+import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
 
 public class OptionsCategoryComponent extends Composite implements Detail {
 
@@ -28,6 +35,9 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 	private Column<CategoryOption, Number> column;
 	private TextColumn<CategoryOption> textColumn;
 	private ListDataProvider<CategoryOption> dataProvider;
+	private Column<CategoryOption, String> deleteColumn;
+
+	private boolean isEditing = false;
 
 	public OptionsCategoryComponent() {
 
@@ -40,7 +50,7 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 
 		dataGrid = new DataGrid<CategoryOption>();
 		flexTable.setWidget(1, 0, dataGrid);
-		dataGrid.setSize("100%", "280px");
+		dataGrid.setSize("226px", "260px");
 
 		column = new Column<CategoryOption, Number>(new NumberCell()) {
 			@Override
@@ -58,6 +68,7 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 				return object.getOption();
 			}
 		};
+
 		dataGrid.addColumn(textColumn, "Option");
 
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
@@ -73,6 +84,11 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 		horizontalPanel.add(button_1);
 
 		Button button_2 = new Button("Edit");
+		button_2.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				setEditing(!isEditing);
+			}
+		});
 		button_2.setStyleName("gwt-Button-SurveyWidgetButton");
 		horizontalPanel.add(button_2);
 		flexTable.getCellFormatter().setHorizontalAlignment(0, 0,
@@ -84,54 +100,84 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 		// Connect the table to the data provider.
 		dataProvider.addDataDisplay(dataGrid);
 
+		deleteColumn = new Column<CategoryOption, String>(new ButtonCell()) {
+			@Override
+			public String getValue(CategoryOption object) {
+				return "X";
+			}
+
+		};
+
+		deleteColumn
+				.setFieldUpdater(new FieldUpdater<CategoryOption, String>() {
+					@Override
+					public void update(int index, CategoryOption object,
+							String value) {
+						// The user clicked on the button for the passed
+						// auction.
+						dataList.remove(object);
+
+						// Refresh
+						configureView();
+					}
+				});
+
 		// Add a selection model to master that pulls up the pain category
 		// options in the detail view
 		final SingleSelectionModel<CategoryOption> optionSelectionModel = new SingleSelectionModel<CategoryOption>();
 		dataGrid.setSelectionModel(optionSelectionModel);
+
 		optionSelectionModel
 				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 					public void onSelectionChange(SelectionChangeEvent event) {
-						// Make the selected option the Pain Category's selected value
-						CategoryOption selectedCategory = optionSelectionModel.getSelectedObject();
+						// Make the selected option the Pain Category's selected
+						// value
+						CategoryOption selectedCategory = optionSelectionModel
+								.getSelectedObject();
 						detailItem.setActualValue(selectedCategory.toString());
-						//Reload the master view
+						// Reload the master view
 						masterObject.refresh();
 					}
 				});
 
-		// Add the data to the data provider, which automatically pushes it to
-		// the
-		// widget.
-		// dataList = dataProvider.getList();
-
-		// Old code that iterates through and sets options.
-		// String[] options = detailItem.getOptions();
-		// //Add options to list.x
-		// for (int i=0; i<options.length; i++) {
-		// dataList.add(new OptionsCategoryOption(i,options[i]));
-		// }
-
-		// TODO Add cell selection
-		// // Add a selection model to handle user selection.
-		// final SingleSelectionModel<String> selectionModel = new
-		// SingleSelectionModel<String>();
-		// cellList.setSelectionModel(selectionModel);
-		// selectionModel.addSelectionChangeHandler(new
-		// SelectionChangeEvent.Handler() {
-		// public void onSelectionChange(SelectionChangeEvent event) {
-		// String selected = selectionModel.getSelectedObject();
-		// if (selected != null) {
-		// Window.alert("You selected: " + selected);
-		// }
-		// }
-		// });
-
 	}
 
 	private void configureView() {
-		// Set the data
+		if (isEditing()) {
+			// dataGrid.setColumnWidth(deleteColumn,"30px");
+
+			configureEditView();
+		} else {
+			dataGrid.setColumnWidth(deleteColumn, "1px");
+
+			// Remove editing features if needed.
+			// removeButtonColumn(deleteColumn);
+		}
+
+		// Set the data and reload the list
 		dataList = detailItem.getOptions();
 		dataProvider.setList(dataList);
+	}
+
+	private void configureEditView() {
+		insertButtonColumn(deleteColumn);
+	}
+
+	public void insertButtonColumn(Column<CategoryOption, String> column) {
+		if (dataGrid.getColumnIndex(column) == -1) {
+			dataGrid.addColumn(column, "");
+			// dataGrid.setColumnWidth(column,50, Unit.PX);
+		}
+		dataGrid.setColumnWidth(column, "25%");
+
+	}
+
+	public void removeButtonColumn(Column<CategoryOption, String> column) {
+		int index = dataGrid.getColumnIndex(column);
+		if (index != -1)
+			dataGrid.setColumnWidth(column, "1px");
+		// dataGrid.setSize("226px", "260px");
+
 	}
 
 	// //Detail Interface methods
@@ -146,5 +192,16 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 	@Override
 	public void setMasterObject(Master newMasterObject) {
 		masterObject = newMasterObject;
+	}
+
+	public boolean isEditing() {
+		return isEditing;
+	}
+
+	public void setEditing(boolean isEditing) {
+		this.isEditing = isEditing;
+
+		// Refresh the view based on editing.
+		configureView();
 	}
 }
