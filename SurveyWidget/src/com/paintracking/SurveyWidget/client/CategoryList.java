@@ -41,8 +41,13 @@ public class CategoryList extends Composite implements Master{
 				sb.appendHtmlConstant("<td style='font-size:110%;'><b>");
 				sb.appendEscaped(value.getCategoryName());
 				sb.appendHtmlConstant("</b></td></tr><tr><td>");
-				sb.appendEscaped(value.getActualValue());
-				sb.appendHtmlConstant("</td></tr></table>");
+				if(value.getActualValue()!=null && value.getActualValue()!=""){
+					sb.appendEscaped(value.getActualValue());
+					sb.appendHtmlConstant("</td></tr></table>");
+				}else{
+					sb.appendHtmlConstant("</td></tr></table>");
+					sb.appendHtmlConstant("<br>");
+				}
 			}
 		}));
 		
@@ -94,7 +99,8 @@ public class CategoryList extends Composite implements Master{
 		a.setCategoryType("options");
 		a.setActualValue("");
 		ArrayList<CategoryOption> optionsA = new ArrayList<CategoryOption>();
-		optionsA.add(new CategoryOption(1,"None"));
+		optionsA.add(new CategoryOption(1,"NoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNone" +
+				"NoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNone"));
 		optionsA.add(new CategoryOption(2,"Some"));
 		optionsA.add(new CategoryOption(3,"A lot"));
 		a.setOptions(optionsA);
@@ -102,10 +108,18 @@ public class CategoryList extends Composite implements Master{
 		PainCategory b = new PainCategory();
 		b.setCategoryName("Mood");
 		b.setCategoryType("text");
-		b.setActualValue("Happy");
+		b.setActualValue("");
 		
+		//Date
+		PainCategory c = new PainCategory();
+		c.setCategoryName("Date Submitted");
+		c.setCategoryType("date");
+		c.setActualValue("");
+
 		dataList.add(a);
 		dataList.add(b);
+		dataList.add(c);
+
 //		ArrayList<CategoryOption> optionsB = new ArrayList<CategoryOption>();
 //		optionsB.add(new CategoryOption(1,"None"));
 //		optionsB.add(new CategoryOption(2,"Some"));

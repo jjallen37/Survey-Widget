@@ -49,8 +49,8 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 			}
 		};
 		column.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		dataGrid.addColumn(column, "Index");
-		dataGrid.setColumnWidth(column, "50px");
+		dataGrid.addColumn(column);
+		dataGrid.setColumnWidth(column, "20%");
 
 		textColumn = new TextColumn<CategoryOption>() {
 			@Override

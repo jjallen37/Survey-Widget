@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.paintracking.SurveyWidget.client.detail.BasicPainCategoryComposite;
+import com.paintracking.SurveyWidget.client.detail.DateCategoryComposite;
 import com.paintracking.SurveyWidget.client.detail.Detail;
 import com.paintracking.SurveyWidget.client.detail.OptionsCategoryComponent;
 import com.paintracking.SurveyWidget.client.detail.TextCategoryComposite;
@@ -52,6 +53,8 @@ public class SurveyWidget implements EntryPoint {
 							detailComposite = new TextCategoryComposite();
 						}else if(selectedCategory.getCategoryType().equals("basic")){
 							detailComposite = new BasicPainCategoryComposite(); //TEST
+						}else if(selectedCategory.getCategoryType().equals("date")){
+							detailComposite = new DateCategoryComposite();
 						}
 						
 						//Hook up master and detail
