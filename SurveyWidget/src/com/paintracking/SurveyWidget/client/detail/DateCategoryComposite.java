@@ -2,7 +2,7 @@ package com.paintracking.SurveyWidget.client.detail;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.paintracking.SurveyWidget.client.Master;
-import com.paintracking.SurveyWidget.client.PainCategory;
+import com.paintracking.SurveyWidget.client.categories.Category;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -20,7 +20,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 
 public class DateCategoryComposite extends Composite implements Detail {
 
-	private PainCategory detailItem;
+	private Category detailItem;
 	private Master masterObject;
 	private DatePicker datePicker;
 	private Label lblDate;
@@ -73,7 +73,7 @@ public class DateCategoryComposite extends Composite implements Detail {
 
 	
 	@Override
-	public void setDetailItem(PainCategory newDetailItem) {
+	public void setDetailItem(Category newDetailItem) {
 		detailItem = newDetailItem;
 		
 	}

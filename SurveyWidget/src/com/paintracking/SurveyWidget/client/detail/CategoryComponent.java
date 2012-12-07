@@ -8,11 +8,11 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Button;
 import com.paintracking.SurveyWidget.client.Master;
-import com.paintracking.SurveyWidget.client.PainCategory;
+import com.paintracking.SurveyWidget.client.categories.Category;
 
 public class CategoryComponent extends Composite implements Detail{
 
-	private PainCategory detailItem;
+	private Category detailItem;
 	private Master masterObject;
 	
 	public CategoryComponent() {
@@ -34,7 +34,7 @@ public class CategoryComponent extends Composite implements Detail{
 	}
 
 	@Override
-	public void setDetailItem(PainCategory newDetailItem) {
+	public void setDetailItem(Category newDetailItem) {
 		detailItem = newDetailItem;
 	}
 

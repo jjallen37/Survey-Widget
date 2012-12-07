@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
+import com.paintracking.SurveyWidget.client.categories.Category;
 import com.paintracking.SurveyWidget.client.detail.BasicPainCategoryComposite;
 import com.paintracking.SurveyWidget.client.detail.DateCategoryComposite;
 import com.paintracking.SurveyWidget.client.detail.Detail;
@@ -38,13 +39,13 @@ public class SurveyWidget implements EntryPoint {
 		
 		
 		// Add a selection model to master that pulls up the pain category options in the detail view
-		final SingleSelectionModel<PainCategory> masterSelectionModel = new SingleSelectionModel<PainCategory>();
+		final SingleSelectionModel<Category> masterSelectionModel = new SingleSelectionModel<Category>();
 		painCategoryComposite.getCategoryCellList().setSelectionModel(masterSelectionModel);
 		masterSelectionModel
 				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 					public void onSelectionChange(SelectionChangeEvent event) {
 						//Create the detail Composite
-						PainCategory selectedCategory = masterSelectionModel.getSelectedObject();
+						Category selectedCategory = masterSelectionModel.getSelectedObject();
 						
 						//Select type of composite based on data type
 						if(selectedCategory.getCategoryType().equals("options")){

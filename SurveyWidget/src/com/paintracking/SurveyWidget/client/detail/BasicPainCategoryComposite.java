@@ -4,13 +4,13 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Composite;
 import com.paintracking.SurveyWidget.client.Master;
-import com.paintracking.SurveyWidget.client.PainCategory;
+import com.paintracking.SurveyWidget.client.categories.Category;
 
 public class BasicPainCategoryComposite extends Composite implements Detail {
 	private Label lblCategoryName;
 	private Label lblActualValue;
 	
-	private PainCategory detailItem;
+	private Category detailItem;
 	@SuppressWarnings("unused")
 	private Master masterObject;
 
@@ -34,7 +34,7 @@ public class BasicPainCategoryComposite extends Composite implements Detail {
 	}
 
 	@Override
-	public void setDetailItem(PainCategory newDetailItem) {
+	public void setDetailItem(Category newDetailItem) {
 		detailItem = newDetailItem;
 
 		//Configure view with new Data

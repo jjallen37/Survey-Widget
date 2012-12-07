@@ -1,9 +1,9 @@
 package com.paintracking.SurveyWidget.client.detail;
 
 import com.google.gwt.user.client.ui.Composite;
-import com.paintracking.SurveyWidget.client.JSONCategory;
 import com.paintracking.SurveyWidget.client.Master;
-import com.paintracking.SurveyWidget.client.PainCategory;
+import com.paintracking.SurveyWidget.client.categories.Category;
+import com.paintracking.SurveyWidget.client.categories.JSONCategory;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -18,7 +18,7 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 
 public class TextCategoryComposite extends Composite implements Detail {
 
-	private PainCategory detailItem;
+	private Category detailItem;
 	private Master masterObject;
 	private TextArea textArea;
 	private Label lblCategoryTitle;
@@ -87,7 +87,7 @@ public class TextCategoryComposite extends Composite implements Detail {
 	
 	////Detail Interface methods
 	@Override
-	public void setDetailItem(PainCategory newDetailItem) {
+	public void setDetailItem(Category newDetailItem) {
 		detailItem = newDetailItem;
 
 		//Configure view with new Data

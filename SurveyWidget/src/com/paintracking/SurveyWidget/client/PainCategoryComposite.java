@@ -4,12 +4,13 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.paintracking.SurveyWidget.client.categories.Category;
 
 public class PainCategoryComposite extends Composite implements PainCategoryView{
 	
-	PainCategory painCategory;
+	Category painCategory;
 	private Label lblCategoryName;
-	public PainCategoryComposite(PainCategory newPainCategory) {
+	public PainCategoryComposite(Category newPainCategory) {
 		painCategory = newPainCategory;
 		
 		FlexTable flexTable = new FlexTable();
@@ -32,7 +33,7 @@ public class PainCategoryComposite extends Composite implements PainCategoryView
 	}
 	
 	@Override
-	public PainCategory getPainCategory() {
+	public Category getPainCategory() {
 		return painCategory;
 	}
 }

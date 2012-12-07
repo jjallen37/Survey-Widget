@@ -12,16 +12,21 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.paintracking.SurveyWidget.client.JsList.JsArrayExtend;
 import com.paintracking.SurveyWidget.client.JsList.JsList;
+import com.paintracking.SurveyWidget.client.categories.Category;
+import com.paintracking.SurveyWidget.client.categories.CategoryOption;
+import com.paintracking.SurveyWidget.client.categories.JSONCategory;
+import com.paintracking.SurveyWidget.client.categories.TextCategory;
 import com.paintracking.SurveyWidget.client.detail.Detail;
+import com.paintracking.SurveyWidget.client.detail.OptionsCategory;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 
 public class CategoryList extends Composite implements Master{
-	private List<PainCategory> dataList = new ArrayList<PainCategory>();
+	private List<Category> dataList = new ArrayList<Category>();
 	private Detail detailObject;
-	private CellList<PainCategory> categoryCellList;
+	private CellList<Category> categoryCellList;
 	
 	public CategoryList() {
 		//Load dummy data
@@ -31,9 +36,9 @@ public class CategoryList extends Composite implements Master{
 		initWidget(flexTable);
 		flexTable.setSize("226px", "224px");
 		
-		setCategoryCellList(new CellList<PainCategory>(new AbstractCell<PainCategory>(){
+		setCategoryCellList(new CellList<Category>(new AbstractCell<Category>(){
 			@Override
-			public void render(Context context, PainCategory value, SafeHtmlBuilder sb) {
+			public void render(Context context, Category value, SafeHtmlBuilder sb) {
 				//Show a the Category name and the selected result
 				sb.appendHtmlConstant("<table>");
 				// Create a table to align the cells correctly
@@ -92,9 +97,9 @@ public class CategoryList extends Composite implements Master{
 	public void loadData(){
 		
 		//Dummy data before I added JSON data
-		dataList = new ArrayList<PainCategory>();
+		dataList = new ArrayList<Category>();
 		
-		PainCategory a = new PainCategory();
+		OptionsCategory a = new OptionsCategory();
 		a.setCategoryName("Pain");
 		a.setCategoryType("options");
 		a.setActualValue("");
@@ -105,13 +110,13 @@ public class CategoryList extends Composite implements Master{
 		optionsA.add(new CategoryOption(3,"A lot"));
 		a.setOptions(optionsA);
 		
-		PainCategory b = new PainCategory();
+		TextCategory b = new TextCategory();
 		b.setCategoryName("Mood");
 		b.setCategoryType("text");
 		b.setActualValue("");
 		
 		//Date
-		PainCategory c = new PainCategory();
+		TextCategory c = new TextCategory();
 		c.setCategoryName("Date Submitted");
 		c.setCategoryType("date");
 		c.setActualValue("");
@@ -183,7 +188,7 @@ public class CategoryList extends Composite implements Master{
 	  
 	private String asJSONData(){
 		String jsonData = "[";
-		for(PainCategory category : dataList){
+		for(Category category : dataList){
 			jsonData += category.getJSON() + ",";
 		}
 		jsonData = jsonData.substring(0,jsonData.length()-1);//Take off last comma
@@ -205,13 +210,14 @@ public class CategoryList extends Composite implements Master{
 	public void refresh() {
 		getCategoryCellList().setRowCount(dataList.size(), true);
 		getCategoryCellList().setRowData(0, dataList);
+		categoryCellList.redraw();
 	}
 
-	public CellList<PainCategory> getCategoryCellList() {
+	public CellList<Category> getCategoryCellList() {
 		return categoryCellList;
 	}
 
-	public void setCategoryCellList(CellList<PainCategory> categoryCellList) {
+	public void setCategoryCellList(CellList<Category> categoryCellList) {
 		this.categoryCellList = categoryCellList;
 	}
 
