@@ -14,7 +14,9 @@ import com.paintracking.SurveyWidget.client.JsList.JsArrayExtend;
 import com.paintracking.SurveyWidget.client.JsList.JsList;
 import com.paintracking.SurveyWidget.client.categories.Category;
 import com.paintracking.SurveyWidget.client.categories.CategoryOption;
+import com.paintracking.SurveyWidget.client.categories.DateCategory;
 import com.paintracking.SurveyWidget.client.categories.JSONCategory;
+import com.paintracking.SurveyWidget.client.categories.QuantityCategory;
 import com.paintracking.SurveyWidget.client.categories.TextCategory;
 import com.paintracking.SurveyWidget.client.detail.Detail;
 import com.paintracking.SurveyWidget.client.detail.OptionsCategory;
@@ -82,6 +84,14 @@ public class CategoryList extends Composite implements Master{
 		horizontalPanel.add(btnSubmit);
 		
 		Button btnClear = new Button("Clear");
+		btnClear.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				for(Category category : dataList){
+					category.clear();
+				}
+				refresh();
+			}
+		});
 		btnClear.setStyleName("gwt-Button-SurveyWidgetButton");
 		horizontalPanel.add(btnClear);
 		
@@ -116,14 +126,20 @@ public class CategoryList extends Composite implements Master{
 		b.setActualValue("");
 		
 		//Date
-		TextCategory c = new TextCategory();
+		DateCategory c = new DateCategory();
 		c.setCategoryName("Date Submitted");
 		c.setCategoryType("date");
 		c.setActualValue("");
-
+		
+		QuantityCategory d = new QuantityCategory();
+		d.setCategoryName("Pushups");
+		d.setCategoryType("quantity");
+		d.setActualValue("");
+		
 		dataList.add(a);
 		dataList.add(b);
 		dataList.add(c);
+		dataList.add(d);
 
 //		ArrayList<CategoryOption> optionsB = new ArrayList<CategoryOption>();
 //		optionsB.add(new CategoryOption(1,"None"));

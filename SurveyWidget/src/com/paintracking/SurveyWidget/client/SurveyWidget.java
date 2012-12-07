@@ -13,6 +13,7 @@ import com.paintracking.SurveyWidget.client.detail.BasicPainCategoryComposite;
 import com.paintracking.SurveyWidget.client.detail.DateCategoryComposite;
 import com.paintracking.SurveyWidget.client.detail.Detail;
 import com.paintracking.SurveyWidget.client.detail.OptionsCategoryComponent;
+import com.paintracking.SurveyWidget.client.detail.QuantityComponent;
 import com.paintracking.SurveyWidget.client.detail.TextCategoryComposite;
 
 /**
@@ -56,6 +57,8 @@ public class SurveyWidget implements EntryPoint {
 							detailComposite = new BasicPainCategoryComposite(); //TEST
 						}else if(selectedCategory.getCategoryType().equals("date")){
 							detailComposite = new DateCategoryComposite();
+						}else if(selectedCategory.getCategoryType().equals("quantity")){
+							detailComposite = new QuantityComponent();
 						}
 						
 						//Hook up master and detail

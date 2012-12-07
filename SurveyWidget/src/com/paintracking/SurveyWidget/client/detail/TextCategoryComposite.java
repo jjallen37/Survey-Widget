@@ -42,9 +42,12 @@ public class TextCategoryComposite extends Composite implements Detail {
 		flexTable.getCellFormatter().setVerticalAlignment(1, 0, HasVerticalAlignment.ALIGN_TOP);
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		flexTable.setWidget(2, 0, horizontalPanel);
+		horizontalPanel.setWidth("100%");
 		
 		Button btnSaveText = new Button("Save Text");
+		btnSaveText.setStyleName("gwt-Button-SurveyWidgetButton");
 		btnSaveText.addMouseUpHandler(new MouseUpHandler() {
 			public void onMouseUp(MouseUpEvent event) {
 				saveText();
@@ -54,6 +57,7 @@ public class TextCategoryComposite extends Composite implements Detail {
 		horizontalPanel.add(btnSaveText);
 		
 		Button btnClear = new Button("Clear");
+		btnClear.setStyleName("gwt-Button-SurveyWidgetButton");
 		btnClear.addMouseUpHandler(new MouseUpHandler() {
 			public void onMouseUp(MouseUpEvent event) {
 				//Clear the text area
@@ -66,6 +70,7 @@ public class TextCategoryComposite extends Composite implements Detail {
 		horizontalPanel.add(btnClear);
 		
 		Button btnEdit = new Button("Edit");
+		btnEdit.setStyleName("gwt-Button-SurveyWidgetButton");
 		btnEdit.addMouseUpHandler(new MouseUpHandler() {
 			public void onMouseUp(MouseUpEvent event) {
 				

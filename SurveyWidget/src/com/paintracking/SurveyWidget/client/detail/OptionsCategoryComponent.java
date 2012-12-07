@@ -27,6 +27,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.cell.client.EditTextCell;
+import com.google.gwt.user.client.ui.TextBox;
 
 public class OptionsCategoryComponent extends Composite implements Detail {
 
@@ -41,6 +42,9 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 
 	private boolean isEditing = false;
 	private Column<CategoryOption, String> editableTextColumn;
+	private Label lblTitle;
+	private TextBox titleEditBox;
+	private Button editButton;
 
 	public OptionsCategoryComponent() {
 
@@ -48,8 +52,8 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 		initWidget(flexTable);
 		flexTable.setSize("226px", "280px");
 
-		Label label = new Label("Category Title");
-		flexTable.setWidget(0, 0, label);
+		lblTitle = new Label("Category Title");
+		flexTable.setWidget(0, 0, lblTitle);
 
 		dataGrid = new DataGrid<CategoryOption>();
 		flexTable.setWidget(1, 0, dataGrid);
@@ -57,25 +61,29 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 
 
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		flexTable.setWidget(2, 0, horizontalPanel);
 		horizontalPanel.setWidth("100%");
 
-		Button button = new Button("Save Text");
-		button.setStyleName("gwt-Button-SurveyWidgetButton");
-		horizontalPanel.add(button);
-
 		Button button_1 = new Button("Clear");
+		button_1.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				detailItem.setActualValue("");
+				detailItem.setSelectedOption(null);
+				configureView();
+			}
+		});
 		button_1.setStyleName("gwt-Button-SurveyWidgetButton");
 		horizontalPanel.add(button_1);
 
-		Button button_2 = new Button("Edit");
-		button_2.addMouseUpHandler(new MouseUpHandler() {
+		editButton = new Button("Edit");
+		editButton.addMouseUpHandler(new MouseUpHandler() {
 			public void onMouseUp(MouseUpEvent event) {
 				setEditing(!isEditing);
 			}
 		});
-		button_2.setStyleName("gwt-Button-SurveyWidgetButton");
-		horizontalPanel.add(button_2);
+		editButton.setStyleName("gwt-Button-SurveyWidgetButton");
+		horizontalPanel.add(editButton);
 		flexTable.getCellFormatter().setHorizontalAlignment(0, 0,
 				HasHorizontalAlignment.ALIGN_CENTER);
 		
@@ -182,6 +190,7 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 		} else {
 			configureNormalView();
 		}
+		
 
 		// Set the data and reload the list
 		dataList = detailItem.getOptions();
@@ -200,6 +209,8 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 		dataGrid.setColumnWidth(deleteColumn, "25%");	
 		dataGrid.setColumnWidth(editableTextColumn, "60%");		
 		
+		//Change edit button title
+		editButton.setText("Done");
 	}
 	
 	private void configureNormalView() {
@@ -208,8 +219,10 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 
 		//Hide editble Columns
 		dataGrid.setColumnWidth(deleteColumn, "0%");	
-		dataGrid.setColumnWidth(editableTextColumn, "0%");		
-
+		dataGrid.setColumnWidth(editableTextColumn, "0%");	
+		
+		//Change edit button title
+		editButton.setText("Edit");
 	}
 
 	// //Detail Interface methods

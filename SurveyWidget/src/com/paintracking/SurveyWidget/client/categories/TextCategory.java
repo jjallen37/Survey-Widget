@@ -11,4 +11,9 @@ public class TextCategory extends Category{
 	public void setActualValue(String actualValue) {
 		this.actualValue = actualValue;
 	}
+
+	@Override
+	public void clear() {
+		this.actualValue = "";
+	}
 }

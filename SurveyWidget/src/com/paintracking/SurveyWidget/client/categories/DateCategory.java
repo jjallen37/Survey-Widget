@@ -23,5 +23,9 @@ public class DateCategory extends Category {
 		this.actualValue = actualValue;
 	}
 	
+	@Override
+	public void clear() {
+		this.actualValue = "";
+	}
 	
 }

@@ -95,5 +95,6 @@ public abstract class Category{
 	
 	public abstract String getActualValue();
 	public abstract void setActualValue(String actualValue);
+	public abstract void clear();
 	
 }

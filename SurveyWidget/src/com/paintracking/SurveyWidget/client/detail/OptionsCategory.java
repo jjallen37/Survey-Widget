@@ -37,4 +37,11 @@ public class OptionsCategory extends Category{
 		this.actualValue = actualValue;
 	}
 
+	@Override
+	public void clear() {
+		selectedOption=null;
+	}
+	
+	
+
 }
