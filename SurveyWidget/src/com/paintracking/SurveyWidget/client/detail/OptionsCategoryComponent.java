@@ -45,6 +45,7 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 	private Label lblTitle;
 	private TextBox titleEditBox;
 	private Button editButton;
+	private Button btnAdd;
 
 	public OptionsCategoryComponent() {
 
@@ -84,6 +85,14 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 		});
 		editButton.setStyleName("gwt-Button-SurveyWidgetButton");
 		horizontalPanel.add(editButton);
+		
+		btnAdd = new Button("Add");
+		btnAdd.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				//
+			}
+		});
+		horizontalPanel.add(btnAdd);
 		flexTable.getCellFormatter().setHorizontalAlignment(0, 0,
 				HasHorizontalAlignment.ALIGN_CENTER);
 		

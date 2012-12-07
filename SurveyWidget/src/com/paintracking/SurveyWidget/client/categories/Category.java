@@ -12,13 +12,15 @@ public abstract class Category{
 	private int categoryID;
 	private int userID;
 	private int fields;
-//	private List<CategoryOption> options;
 	private int relativeValue;
 	private String categoryType;
 	private String categoryName;
 	protected String actualValue;       
+//	private List<CategoryOption> options;
 
-    
+    /*
+     * "[{categoryName:"Name",actualValue:"abc",options:[,
+     */
 //	public Category(JSONCategory jsonCategory){
 //		//Make options list
 //		JsArray<JsonOption> tempOps = jsonCategory.getOptions();

@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -37,6 +38,14 @@ public class CategoryList extends Composite implements Master{
 		FlexTable flexTable = new FlexTable();
 		initWidget(flexTable);
 		flexTable.setSize("226px", "224px");
+		
+//		
+//		Column<Category,String> categoryColumn = new Column<Category,String>(new CategoryCell()){
+//	        @Override
+//	        public String getValue(Category object){
+//	        	return object.getCategoryName();
+//	        }
+//		};
 		
 		setCategoryCellList(new CellList<Category>(new AbstractCell<Category>(){
 			@Override
