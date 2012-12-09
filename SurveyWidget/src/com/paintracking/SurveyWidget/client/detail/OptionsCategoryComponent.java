@@ -46,22 +46,25 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 	private TextBox titleEditBox;
 	private Button editButton;
 	private Button btnAdd;
+	private HorizontalPanel horizontalPanel;
 
+	//Max number of options 
+	private final int MAX_OPTIONS = 10;
 	public OptionsCategoryComponent() {
 
 		FlexTable flexTable = new FlexTable();
 		initWidget(flexTable);
-		flexTable.setSize("226px", "280px");
+		flexTable.setSize("250px", "280px");
 
 		lblTitle = new Label("Category Title");
 		flexTable.setWidget(0, 0, lblTitle);
 
 		dataGrid = new DataGrid<CategoryOption>();
 		flexTable.setWidget(1, 0, dataGrid);
-		dataGrid.setSize("226px", "260px");
+		dataGrid.setSize("100%", "260px");
 
 
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		flexTable.setWidget(2, 0, horizontalPanel);
 		horizontalPanel.setWidth("100%");
@@ -87,12 +90,16 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 		horizontalPanel.add(editButton);
 		
 		btnAdd = new Button("Add");
+		btnAdd.setStyleName("gwt-Button-SurveyWidgetButton");
 		btnAdd.addMouseUpHandler(new MouseUpHandler() {
 			public void onMouseUp(MouseUpEvent event) {
-				//
+				//Add new option and refresh if the user doesn't have the max number of options
+				if(dataList.size()<MAX_OPTIONS){
+					dataList.add(new CategoryOption(dataList.size()+1,""));
+					configureView();
+				}
 			}
 		});
-		horizontalPanel.add(btnAdd);
 		flexTable.getCellFormatter().setHorizontalAlignment(0, 0,
 				HasHorizontalAlignment.ALIGN_CENTER);
 		
@@ -220,6 +227,8 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 		
 		//Change edit button title
 		editButton.setText("Done");
+		horizontalPanel.add(btnAdd);
+
 	}
 	
 	private void configureNormalView() {
@@ -232,6 +241,7 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 		
 		//Change edit button title
 		editButton.setText("Edit");
+		horizontalPanel.remove(btnAdd);
 	}
 
 	// //Detail Interface methods
