@@ -24,6 +24,8 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.cell.client.EditTextCell;
@@ -47,17 +49,34 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 	private Button editButton;
 	private Button btnAdd;
 	private HorizontalPanel horizontalPanel;
-
+	private TextBox titleEditTextBox;
+	
 	//Max number of options 
 	private final int MAX_OPTIONS = 10;
+	private FlexTable flexTable;
+	
+
 	public OptionsCategoryComponent() {
 
-		FlexTable flexTable = new FlexTable();
+		flexTable = new FlexTable();
 		initWidget(flexTable);
 		flexTable.setSize("250px", "280px");
-
+		
+		titleEditTextBox = new TextBox();
+		titleEditTextBox.setSize("100%", "25px");
+		titleEditTextBox.addKeyPressHandler(new KeyPressHandler() {
+			public void onKeyPress(KeyPressEvent event) {
+	            char charCode = event.getCharCode();
+	            if(charCode == '\r'){//Enter
+	            	saveTitleText();
+	            }
+			}
+		});
+		
 		lblTitle = new Label("Category Title");
+		lblTitle.setStyleName("gwt-Label-Title");
 		flexTable.setWidget(0, 0, lblTitle);
+		lblTitle.setHeight("25px");
 
 		dataGrid = new DataGrid<CategoryOption>();
 		flexTable.setWidget(1, 0, dataGrid);
@@ -83,7 +102,14 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 		editButton = new Button("Edit");
 		editButton.addMouseUpHandler(new MouseUpHandler() {
 			public void onMouseUp(MouseUpEvent event) {
+				//Is about to stop editing
+				if(isEditing){
+					//Save the user changes to the title
+					saveTitleText();
+				}
+				
 				setEditing(!isEditing);
+				
 			}
 		});
 		editButton.setStyleName("gwt-Button-SurveyWidgetButton");
@@ -138,12 +164,10 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 		// Add a field updater to be notified when the user enters a new name.
 		editableTextColumn.setFieldUpdater(new FieldUpdater<CategoryOption, String>() {
 	      public void update(int index, CategoryOption object, String value) {
-	    	  
 	    	  //If the currently selected item is changed, make sure the master list is updated.
 	    	  if(detailItem.getActualValue().equals(object.toString())){
 	    		  detailItem.setActualValue(object.toString());
 	    	  }
-	    	  
 	    	  
 	    	  //Save the edit
 	    	  object.setOption(value);
@@ -218,6 +242,10 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 	}
 
 	private void configureEditView() {
+		//Make the Title an editable text box
+		titleEditTextBox.setText(detailItem.getCategoryName());
+		flexTable.setWidget(0, 0, titleEditTextBox);
+
 		//Hide normal columns
 		dataGrid.setColumnWidth(textColumn, "0%");	
 
@@ -232,6 +260,10 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 	}
 	
 	private void configureNormalView() {
+		//Make the title just a label
+		lblTitle.setText(detailItem.getCategoryName());
+		flexTable.setWidget(0, 0, lblTitle);
+
 		//Show normal columns
 		dataGrid.setColumnWidth(textColumn, "75%");	
 
@@ -264,8 +296,15 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 
 	public void setEditing(boolean isEditing) {
 		this.isEditing = isEditing;
-
+		
 		// Refresh the view based on editing.
 		configureView();
+	}
+	
+	private void saveTitleText(){
+		if(titleEditTextBox.getText().length() == 0)
+			return;
+		
+		detailItem.setCategoryName(titleEditTextBox.getText());
 	}
 }

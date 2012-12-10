@@ -3,6 +3,12 @@ package com.paintracking.SurveyWidget.client;
 
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestBuilder;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
+import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -68,42 +74,42 @@ public class SurveyWidget implements EntryPoint {
 	        }
 	      }
 	    });
-
-		
-//		// Add a selection model to master that pulls up the pain category options in the detail view
-//		final SingleSelectionModel<Category> masterSelectionModel = new SingleSelectionModel<Category>();
-//		painCategoryComposite.getCategoryCellList().setSelectionModel(masterSelectionModel);
-//		masterSelectionModel
-//				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-//					public void onSelectionChange(SelectionChangeEvent event) {
-//						//Create the detail Composite
-//						Category selectedCategory = masterSelectionModel.getSelectedObject();
-//						
-//						//Select type of composite based on data type
-//						if(selectedCategory.getCategoryType().equals("options")){
-//							detailComposite = new OptionsCategoryComponent(); //TEST
-//						}else if(selectedCategory.getCategoryType().equals("text")){
-//							detailComposite = new TextCategoryComposite();
-//						}else if(selectedCategory.getCategoryType().equals("basic")){
-//							detailComposite = new BasicPainCategoryComposite(); //TEST
-//						}else if(selectedCategory.getCategoryType().equals("date")){
-//							detailComposite = new DateCategoryComposite();
-//						}else if(selectedCategory.getCategoryType().equals("quantity")){
-//							detailComposite = new QuantityComponent();
-//						}
-//						
-//						//Hook up master and detail
-//						detailPanel.setWidget((Composite)detailComposite);
-//						painCategoryComposite.setDetailObject(detailComposite);
-//						detailComposite.setMasterObject(painCategoryComposite);
-//						detailComposite.setDetailItem(selectedCategory);
-//						
-//					}
-//				});
-//		
-//		
-		
-		
-
+	    
+//	    doGet("http://wwwx.cs.unc.edu/Courses/comp523-f12/paintracker/testloadcategories.php");
 	}
+	
+	public void doGet(String myurl) {
+        // make sure spaces and special characters have the correct encoding
+        myurl = URL.encode(myurl);
+
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, myurl);
+
+        try {
+          Request request = builder.sendRequest(null, new RequestCallback() {
+            public void onError(Request request, Throwable exception) {
+                processResponse("ERROR. Could not connect to server.");
+            }
+
+			@Override
+            public void onResponseReceived(Request request, Response response) {
+              if (200 == response.getStatusCode()) {
+                  // call the method in main class to process the response
+                  processResponse(response.getText());
+              } else {
+                  processResponse("ERROR. Errorcode: " + response.getStatusCode());
+              }
+            }
+
+
+          });
+
+        } catch (RequestException e) {
+                processResponse("ERROR. No connection to server");
+        }
+	}
+	
+	public void processResponse(String responseString) {
+        System.out.println(responseString);
+	} // processResponse
+
 }

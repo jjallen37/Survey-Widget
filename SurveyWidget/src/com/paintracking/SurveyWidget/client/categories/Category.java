@@ -3,9 +3,6 @@ package com.paintracking.SurveyWidget.client.categories;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import com.paintracking.SurveyWidget.client.PropertyChangeSupport.APropertyListenerSupport;
-import com.paintracking.SurveyWidget.client.PropertyChangeSupport.PropertyListenerSupport;
-
 public abstract class Category{
 
 	private int surveyID;

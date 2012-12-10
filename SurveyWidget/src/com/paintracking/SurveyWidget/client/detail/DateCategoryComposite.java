@@ -14,7 +14,7 @@ import com.google.gwt.user.datepicker.client.DatePicker;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 
-import java.text.SimpleDateFormat;
+//import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 
@@ -25,6 +25,7 @@ public class DateCategoryComposite extends Composite implements Detail {
 	private DatePicker datePicker;
 	private Label lblDate;
 	private Label lblTitle;
+	/*
 
 	public DateCategoryComposite() {
 		
@@ -70,7 +71,7 @@ public class DateCategoryComposite extends Composite implements Detail {
 		flexTable.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_CENTER);
 		flexTable.getCellFormatter().setVerticalAlignment(2, 0, HasVerticalAlignment.ALIGN_MIDDLE);
 	}
-
+*/
 	
 	@Override
 	public void setDetailItem(Category newDetailItem) {

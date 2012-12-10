@@ -22,12 +22,14 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class CategoryCellList extends Composite implements Master, CategoryList{
 	private List<Category> dataList = new ArrayList<Category>();
 	private CellTable<Category> cellTable;
 	private ListDataProvider<Category> dataProvider;
 	private Detail detailObject;
+	private ScrollPanel scrollPanel;
 
 	public CategoryCellList() {
 
@@ -38,19 +40,22 @@ public class CategoryCellList extends Composite implements Master, CategoryList{
 		Label label = new Label("Categories");
 		flexTable.setWidget(0, 0, label);
 		
-		setCellTable(new CellTable<Category>());
-		flexTable.setWidget(1, 0, getCellTable());
-		cellTable.setSize("100%", "100%");
-		
 		
 
 		//Load the dummy data
 		loadData();
 		// Create a data provider for the cell table
 		dataProvider = new ListDataProvider<Category>();
+		dataProvider.setList(dataList);
+		
+		scrollPanel = new ScrollPanel();
+		flexTable.setWidget(1, 0, scrollPanel);
+		scrollPanel.setSize("100%", "300px");
+		
+		setCellTable(new CellTable<Category>());
+		cellTable.setSize("100%", "100%");
 		// Connect the table to the data provider.
 		dataProvider.addDataDisplay(getCellTable());
-		dataProvider.setList(dataList);
 		
 
 		
@@ -83,10 +88,6 @@ public class CategoryCellList extends Composite implements Master, CategoryList{
 		Button button_1 = new Button("Clear");
 		button_1.setStyleName("gwt-Button-SurveyWidgetButton");
 		horizontalPanel.add(button_1);
-		
-		Button button_2 = new Button("Edit");
-		button_2.setStyleName("gwt-Button-SurveyWidgetButton");
-		horizontalPanel.add(button_2);
 		
 		Button button_3 = new Button("Add\n");
 		button_3.setStyleName("gwt-Button-SurveyWidgetButton");
@@ -129,6 +130,7 @@ public class CategoryCellList extends Composite implements Master, CategoryList{
 
 	public void setCellTable(CellTable<Category> cellTable) {
 		this.cellTable = cellTable;
+		scrollPanel.setWidget(cellTable);
 	}
 
 	
@@ -143,8 +145,7 @@ public class CategoryCellList extends Composite implements Master, CategoryList{
 		a.setCategoryType("options");
 		a.setActualValue("");
 		ArrayList<CategoryOption> optionsA = new ArrayList<CategoryOption>();
-		optionsA.add(new CategoryOption(1,"NoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNone" +
-				"NoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNoneNone"));
+		optionsA.add(new CategoryOption(1,"None"));
 		optionsA.add(new CategoryOption(2,"Some"));
 		optionsA.add(new CategoryOption(3,"A lot"));
 		a.setOptions(optionsA);
@@ -157,7 +158,7 @@ public class CategoryCellList extends Composite implements Master, CategoryList{
 		//Date
 		DateCategory c = new DateCategory();
 		c.setCategoryName("Date Submitted");
-		c.setCategoryType("date");
+		c.setCategoryType("text");
 		c.setActualValue("");
 		
 		QuantityCategory d = new QuantityCategory();
@@ -169,5 +170,7 @@ public class CategoryCellList extends Composite implements Master, CategoryList{
 		dataList.add(b);
 		dataList.add(c);
 		dataList.add(d);
+		
+		
 	}
 }

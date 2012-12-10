@@ -37,6 +37,7 @@ public class QuantityComponent extends Composite implements Detail{
 		flexTable.setSize("226px", "280px");
 		
 		lblTitle = new Label("Category Title");
+		lblTitle.setStyleName("gwt-Label-Title");
 		flexTable.setWidget(0, 0, lblTitle);
 		
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
@@ -53,6 +54,7 @@ public class QuantityComponent extends Composite implements Detail{
 	            }
 			}
 		});
+		
 		horizontalPanel_1.add(doubleBox);
 		doubleBox.setSize("163px", "49px");
 		
