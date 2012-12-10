@@ -4,6 +4,10 @@ public class QuantityCategory extends Category{
 
 	private double quantity; 
 	
+	public QuantityCategory(){
+		this.categoryType = "quantity";
+	}
+	
 	@Override
 	public String getActualValue() {
 		return ""+this.quantity;

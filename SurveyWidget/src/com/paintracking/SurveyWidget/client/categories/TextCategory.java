@@ -2,6 +2,10 @@ package com.paintracking.SurveyWidget.client.categories;
 
 
 public class TextCategory extends Category{
+	
+	public TextCategory(){
+		this.categoryType = "text";
+	}
 	@Override
 	public String getActualValue() {
 		return this.actualValue;

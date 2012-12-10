@@ -10,6 +10,10 @@ public class OptionsCategory extends Category{
 	private List<CategoryOption> options;
 	private CategoryOption selectedOption;
 	
+	public OptionsCategory(){
+		this.categoryType = "options";
+	}
+	
 	public List<CategoryOption> getOptions() {
 		return options;
 	}

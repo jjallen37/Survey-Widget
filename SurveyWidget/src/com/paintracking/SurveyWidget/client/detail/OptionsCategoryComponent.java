@@ -45,7 +45,6 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 	private boolean isEditing = false;
 	private Column<CategoryOption, String> editableTextColumn;
 	private Label lblTitle;
-	private TextBox titleEditBox;
 	private Button editButton;
 	private Button btnAdd;
 	private HorizontalPanel horizontalPanel;
@@ -231,7 +230,6 @@ public class OptionsCategoryComponent extends Composite implements Detail {
 			configureNormalView();
 		}
 		
-
 		// Set the data and reload the list
 		dataList = detailItem.getOptions();
 		dataProvider.setList(dataList);

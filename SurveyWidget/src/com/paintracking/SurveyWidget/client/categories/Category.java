@@ -10,7 +10,7 @@ public abstract class Category{
 	private int userID;
 	private int fields;
 	private int relativeValue;
-	private String categoryType;
+	protected String categoryType;
 	private String categoryName;
 	protected String actualValue;       
 //	private List<CategoryOption> options;
@@ -39,10 +39,7 @@ public abstract class Category{
 //
 //	}
 //	
-//	public Category(){
-//		
-//	}
-	
+
 	public String getJSON(){
 		//TODO write reflective java code to generate json
 		return "{\"categoryName\":\""+categoryName+"\", \"actualValue\":\""+actualValue+"\"}";

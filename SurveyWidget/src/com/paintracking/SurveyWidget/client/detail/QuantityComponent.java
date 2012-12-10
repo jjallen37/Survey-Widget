@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DoubleBox;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
@@ -29,12 +30,28 @@ public class QuantityComponent extends Composite implements Detail{
 	private Master masterObject;
 	private DoubleBox doubleBox;
 	private Label lblTitle;
+	private TextBox titleEditTextBox;
+	private boolean isEditing; 
+	private HorizontalPanel horizontalPanel;
+	private Button editButton;
+	private FlexTable flexTable;
 	
 	public QuantityComponent() {
 		
-		FlexTable flexTable = new FlexTable();
+		flexTable = new FlexTable();
 		initWidget(flexTable);
 		flexTable.setSize("226px", "280px");
+		
+		titleEditTextBox = new TextBox();
+		titleEditTextBox.setSize("100%", "25px");
+		titleEditTextBox.addKeyPressHandler(new KeyPressHandler() {
+			public void onKeyPress(KeyPressEvent event) {
+	            char charCode = event.getCharCode();
+	            if(charCode == '\r'){//Enter
+	            	saveTitleText();
+	            }
+			}
+		});
 		
 		lblTitle = new Label("Category Title");
 		lblTitle.setStyleName("gwt-Label-Title");
@@ -84,24 +101,38 @@ public class QuantityComponent extends Composite implements Detail{
 		verticalPanel.add(btnNewButton_1);
 		btnNewButton_1.setSize("50px", "25px");
 		
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		horizontalPanel = new HorizontalPanel();
 		flexTable.setWidget(2, 0, horizontalPanel);
 		
 		Button button_1 = new Button("Clear");
+		button_1.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				detailItem.setQuantity(0.0);
+				configureView();
+				masterObject.refresh();
+			}
+		});
+		
 		button_1.setStyleName("gwt-Button-SurveyWidgetButton");
 		horizontalPanel.add(button_1);
 		
-		Button button_2 = new Button("Edit");
-		button_2.setStyleName("gwt-Button-SurveyWidgetButton");
-		horizontalPanel.add(button_2);
+		editButton = new Button("Edit");
+		editButton.addMouseUpHandler(new MouseUpHandler() {
+			public void onMouseUp(MouseUpEvent event) {
+				//Is about to stop editing
+				if(isEditing){
+					//Save the user changes to the title
+					saveTitleText();
+				}
+				//Toggle editing
+				setEditing(!isEditing);
+			}
+		});
+		editButton.setStyleName("gwt-Button-SurveyWidgetButton");
+		horizontalPanel.add(editButton);
 		flexTable.getCellFormatter().setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_CENTER);
 		flexTable.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_CENTER);
 		
-	}
-	
-	private void configureView(){
-		doubleBox.setValue(detailItem.getQuantity());
-		lblTitle.setText(detailItem.getCategoryName());
 	}
 
 	@Override
@@ -114,5 +145,52 @@ public class QuantityComponent extends Composite implements Detail{
 	@Override
 	public void setMasterObject(Master newMasterObject) {
 		this.masterObject = newMasterObject;
+	}
+	
+	
+	private void configureView() {
+		if (isEditing()) {
+			configureEditView();
+		} else {
+			configureNormalView();
+		}
+		doubleBox.setValue(detailItem.getQuantity());		
+		masterObject.refresh();
+	}
+
+	private void configureEditView() {
+		//Make the Title an editable text box
+		titleEditTextBox.setText(detailItem.getCategoryName());
+		flexTable.setWidget(0, 0, titleEditTextBox);
+
+		//Change edit button title
+		editButton.setText("Done");
+
+	}
+	
+	private void configureNormalView() {
+		//Make the title just a label
+		lblTitle.setText(detailItem.getCategoryName());
+		flexTable.setWidget(0, 0, lblTitle);
+		
+		//Change edit button title
+		editButton.setText("Edit");
+	}
+	
+	private void saveTitleText(){
+		if(titleEditTextBox.getText().length() == 0)
+			return;
+		
+		detailItem.setCategoryName(titleEditTextBox.getText());
+	}
+
+	public boolean isEditing() {
+		
+		return isEditing;
+	}
+
+	public void setEditing(boolean isEditing) {
+		this.isEditing = isEditing;
+		configureView();
 	}
 }
