@@ -1,12 +1,24 @@
+/**
+ * @author James Allen 
+ * December 2012
+ * Comp 523: Paintracker
+ *  
+ *  Options Category component is the most complicated category component, 
+ *  because it has adding features.
+ *  The main cell widget is a DataGrid, which is provided CategoryOption data by
+ *  the variable dataList. The composite can clear the current selection, 
+ *  change options and title text, and add new options.
+ */
+
 package com.paintracking.SurveyWidget.client.detail;
 
 import java.util.List;
-
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.ui.Composite;
+import com.paintracking.SurveyWidget.client.Detail;
 import com.paintracking.SurveyWidget.client.Master;
 import com.paintracking.SurveyWidget.client.categories.Category;
 import com.paintracking.SurveyWidget.client.categories.CategoryOption;
+import com.paintracking.SurveyWidget.client.categories.OptionsCategory;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -16,19 +28,16 @@ import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.NumberCell;
-import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.TextInputCell;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.cell.client.ButtonCell;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.cell.client.EditTextCell;
 import com.google.gwt.user.client.ui.TextBox;
 
 public class OptionsCategoryComponent extends Composite implements Detail {

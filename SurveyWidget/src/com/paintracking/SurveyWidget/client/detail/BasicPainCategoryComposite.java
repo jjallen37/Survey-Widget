@@ -1,8 +1,19 @@
+/**
+ * @author James Allen 
+ * December 2012
+ * Comp 523: Paintracker
+ *  
+ *  This is was the first Category Composite made
+ *  in order to test if the category data was being passed through.
+ *  All this does is graphically display some standard properties of the category.
+ */
+
 package com.paintracking.SurveyWidget.client.detail;
 
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Composite;
+import com.paintracking.SurveyWidget.client.Detail;
 import com.paintracking.SurveyWidget.client.Master;
 import com.paintracking.SurveyWidget.client.categories.Category;
 

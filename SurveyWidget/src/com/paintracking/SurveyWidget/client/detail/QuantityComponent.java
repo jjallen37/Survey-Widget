@@ -1,16 +1,23 @@
+/**
+ * @author James Allen 
+ * December 2012
+ * Comp 523: Paintracker
+ *  
+ *  The QuantityComponent is a composite that allows a user to set a number
+ *  in a textbox. The user can increment and decrement the quantity with
+ *  Up and down buttons next to the field
+ *
+ */
+
 package com.paintracking.SurveyWidget.client.detail;
 
 import com.google.gwt.user.client.ui.Composite;
+import com.paintracking.SurveyWidget.client.Detail;
 import com.paintracking.SurveyWidget.client.Master;
 import com.paintracking.SurveyWidget.client.categories.Category;
 import com.paintracking.SurveyWidget.client.categories.QuantityCategory;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.cellview.client.DataGrid;
-import com.paintracking.SurveyWidget.client.categories.CategoryOption;
-import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.cell.client.Cell;
-import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DoubleBox;
@@ -19,8 +26,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 

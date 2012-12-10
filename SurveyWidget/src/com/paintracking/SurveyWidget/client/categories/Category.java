@@ -1,7 +1,15 @@
-package com.paintracking.SurveyWidget.client.categories;
+/**
+ * @author James Allen 
+ * December 2012
+ * Comp 523: Paintracker
+ *  
+ *  Category is the abstract class to which a type of category 
+ *  can be an instance of. Known subclasses are DateCategory,
+ *  TextCategory, QuantityCategory, and OptionsCategory.
+ * 
+ */
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+package com.paintracking.SurveyWidget.client.categories;
 
 public abstract class Category{
 

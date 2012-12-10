@@ -1,3 +1,14 @@
+/**
+ * @author James Allen 
+ * December 2012
+ * Comp 523: Paintracker
+ *  
+ *  CategoryOption is the helper class of OptionsCategory.
+ *  CategoryOption is contained within an array of OptionsCategory.
+ *  
+ * 
+ */
+
 package com.paintracking.SurveyWidget.client.categories;
 
 public class CategoryOption{

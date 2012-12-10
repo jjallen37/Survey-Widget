@@ -1,3 +1,13 @@
+/**
+ * @author James Allen 
+ * December 2012
+ * Comp 523: Paintracker
+ *  
+ *  Holds a category's numerical quantity, and has code
+ *  to increment and decrement the stored value
+ * 
+ */
+
 package com.paintracking.SurveyWidget.client.categories;
 
 public class QuantityCategory extends Category{

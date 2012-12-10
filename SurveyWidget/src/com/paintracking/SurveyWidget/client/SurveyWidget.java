@@ -1,8 +1,17 @@
+/**
+ * @author James Allen 
+ * December 2012
+ * Comp 523: Paintracker
+ *  
+ *  The main class in the SurveyWidget GWT Product because it implments EntryPoint.
+ *  This class is the controller between the Master CategoryCellList and the 
+ *  Detail Components: OptionsCategoryComponent, DateCategoryComposite, and TextCategoryComposite to name a few.
+ * 
+ */
+
 package com.paintracking.SurveyWidget.client;
 
-import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
@@ -11,23 +20,18 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.paintracking.SurveyWidget.client.categories.Category;
-import com.paintracking.SurveyWidget.client.categories.CategoryOption;
-import com.paintracking.SurveyWidget.client.categories.NewCategoryComponent;
 import com.paintracking.SurveyWidget.client.detail.BasicPainCategoryComposite;
 import com.paintracking.SurveyWidget.client.detail.DateCategoryComposite;
-import com.paintracking.SurveyWidget.client.detail.Detail;
+import com.paintracking.SurveyWidget.client.detail.NewCategoryComponent;
 import com.paintracking.SurveyWidget.client.detail.OptionsCategoryComponent;
 import com.paintracking.SurveyWidget.client.detail.QuantityComponent;
 import com.paintracking.SurveyWidget.client.detail.TextCategoryComposite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HorizontalSplitPanel;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 

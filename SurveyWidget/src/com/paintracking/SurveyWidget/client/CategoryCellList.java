@@ -1,3 +1,16 @@
+/**
+ * @author James Allen 
+ * December 2012
+ * Comp 523: Paintracker
+ *  
+ *  CategoryCell List is a composite that displays the user Survey.
+ *  It contains a cell table, and buttons controlling that cell table.
+ *  This implements the master interface, meaning that it has a relationship
+ *  with all objects that implement the cooresponding detail interface, such
+ *  as the Category composites.
+ * 
+ */
+
 package com.paintracking.SurveyWidget.client;
 
 import java.util.ArrayList;
@@ -5,18 +18,15 @@ import java.util.List;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
-import com.paintracking.SurveyWidget.client.detail.Detail;
-import com.paintracking.SurveyWidget.client.detail.OptionsCategory;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.cellview.client.CellList;
 import com.paintracking.SurveyWidget.client.categories.Category;
 import com.paintracking.SurveyWidget.client.categories.JSONCategory;
 import com.paintracking.SurveyWidget.client.categories.CategoryOption;
 import com.paintracking.SurveyWidget.client.categories.DateCategory;
+import com.paintracking.SurveyWidget.client.categories.OptionsCategory;
 import com.paintracking.SurveyWidget.client.categories.QuantityCategory;
 import com.paintracking.SurveyWidget.client.categories.TextCategory;
-import com.google.gwt.cell.client.Cell;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
@@ -24,9 +34,6 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.http.client.URL;
-import com.google.gwt.json.client.JSONParser;
-import com.google.gwt.json.client.JSONValue;
-import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.cellview.client.CellTable;
@@ -38,7 +45,7 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 
-public class CategoryCellList extends Composite implements Master, CategoryList {
+public class CategoryCellList extends Composite implements Master {
 	private List<Category> dataList = new ArrayList<Category>();
 	private CellTable<Category> cellTable;
 	private ListDataProvider<Category> dataProvider;
@@ -120,18 +127,6 @@ public class CategoryCellList extends Composite implements Master, CategoryList 
 		
 		setBtnAdd(new Button("Add"));
 		horizontalPanel.add(getBtnAdd());
-	}
-
-	@Override
-	public void submit() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

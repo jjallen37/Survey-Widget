@@ -1,9 +1,20 @@
+/**
+ * @author James Allen 
+ * December 2012
+ * Comp 523: Paintracker
+ *  
+ *  The TextCategoryComposite is an object that allows the user to 
+ *  save text. It has a title, a text input box, and edit and clear buttons
+ *  similar to the other CategoryComposites. 
+ *
+ */
+
 package com.paintracking.SurveyWidget.client.detail;
 
 import com.google.gwt.user.client.ui.Composite;
+import com.paintracking.SurveyWidget.client.Detail;
 import com.paintracking.SurveyWidget.client.Master;
 import com.paintracking.SurveyWidget.client.categories.Category;
-import com.paintracking.SurveyWidget.client.categories.JSONCategory;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -12,8 +23,6 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;

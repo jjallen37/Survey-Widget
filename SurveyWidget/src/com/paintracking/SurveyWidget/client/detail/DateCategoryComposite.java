@@ -1,14 +1,24 @@
+/**
+ * @author James Allen 
+ * December 2012
+ * Comp 523: Paintracker
+ *  
+ *  The DateCategoryComposite is a GWT composite that contains a date picker.
+ *  The date picker is connected to a Category passed from the Master object,
+ *  and formatted in "MM/dd/yyyy" format.
+ *
+ */
+
 package com.paintracking.SurveyWidget.client.detail;
 
 import com.google.gwt.user.client.ui.Composite;
+import com.paintracking.SurveyWidget.client.Detail;
 import com.paintracking.SurveyWidget.client.Master;
 import com.paintracking.SurveyWidget.client.categories.Category;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.datepicker.client.DatePicker;
